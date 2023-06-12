@@ -1,0 +1,1 @@
+// This file is used to setup the server and handle global middlewares
