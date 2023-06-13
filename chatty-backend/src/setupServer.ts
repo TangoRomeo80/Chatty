@@ -108,6 +108,7 @@ export class ChattyServer {
 
   // Method to start http server
   private startHttpServer(httpServer: http.Server): void {
+    console.log(`Server started with process id ${process.pid}`)
     httpServer.listen(config.PORT, () => {
       console.log(`Chatty server started on port ${config.PORT}`)
     })
