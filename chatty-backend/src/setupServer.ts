@@ -17,8 +17,7 @@ import hpp from 'hpp' // import hpp module for handling http parameter pollution
 import cookieSessions from 'cookie-session' // import cookie-session module for handling cookie sessions
 import HTTP_STATUS from 'http-status-codes' // import http status codes
 import 'express-async-errors' // import express-async-errors module to handle async errors
-
-const SERVER_PORT = 5000 // server port
+import { config } from './config'
 
 // Class to setup the server
 export class ChattyServer {
@@ -57,9 +56,9 @@ export class ChattyServer {
     app.use(
       cookieSessions({
         name: 'session',
-        keys: ['test1', 'test2'],
+        keys: [config.SECRET_KEY_ONE!, config.SECRET_KEY_TWO!],
         maxAge: 7 * 24 * 60 * 60 * 1000,
-        secure: false,
+        secure: config.NODE_ENV !== 'development',
       })
     ) // cookie-session middleware to handle cookie sessions
     app.use(compression()) // compression middleware to handle compression
@@ -88,8 +87,8 @@ export class ChattyServer {
 
   // Method to start http server
   private startHttpServer(httpServer: http.Server): void {
-    httpServer.listen(SERVER_PORT, () => {
-      console.log(`Chatty server started on port ${SERVER_PORT}`)
+    httpServer.listen(config.PORT, () => {
+      console.log(`Chatty server started on port ${config.PORT}`)
     })
   }
 }
