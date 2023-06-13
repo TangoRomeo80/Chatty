@@ -16,6 +16,9 @@ import helmet from 'helmet' // import helmet module for handling security
 import hpp from 'hpp' // import hpp module for handling http parameter pollution
 import cookieSessions from 'cookie-session' // import cookie-session module for handling cookie sessions
 import HTTP_STATUS from 'http-status-codes' // import http status codes
+import { Server } from 'socket.io' // import socket.io module for handling socket server
+import { createClient } from 'redis' // import redis module for handling redis client
+import { createAdapter } from '@socket.io/redis-adapter' // import redis adapter module for handling redis adapter
 import 'express-async-errors' // import express-async-errors module to handle async errors
 import { config } from './config'
 
@@ -76,19 +79,42 @@ export class ChattyServer {
   private async startServer(app: Application): Promise<void> {
     try {
       const httpServer: http.Server = new http.Server(app)
+      const socketIO: Server = await this.createSocketIO(httpServer)
       this.startHttpServer(httpServer)
+      this.socketIOConnections(socketIO)
     } catch (error) {
       console.log(error)
     }
   }
 
   // Method to create socket server
-  private createSocketIO(httpServer: http.Server): void {}
+  private async createSocketIO(httpServer: http.Server): Promise<Server> {
+    // Create socket server
+    const io: Server = new Server(httpServer, {
+      cors: {
+        origin: '*',
+        methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
+      },
+    })
+    // Create redis client
+    const pubClient = createClient({
+      url: config.REDIS_HOST,
+    }) // Create redis publisher client
+    const subClient = pubClient.duplicate() // Create redis subscriber client
+    await Promise.all([pubClient.connect(), subClient.connect()]) // Connect redis clients
+    io.adapter(createAdapter(pubClient, subClient)) // Create redis adapter for socket server
+    return io
+  }
 
   // Method to start http server
   private startHttpServer(httpServer: http.Server): void {
     httpServer.listen(config.PORT, () => {
       console.log(`Chatty server started on port ${config.PORT}`)
     })
+  }
+
+  // Method to start socket server
+  private socketIOConnections(io: Server): void {
+
   }
 }
