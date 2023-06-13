@@ -16,8 +16,7 @@ class App {
   }
 
   private loadConfig(): void {
-    // Load environment variables
-    config.validateConfig()
+    config.validateConfig() // Load environment variables
   }
 }
 
