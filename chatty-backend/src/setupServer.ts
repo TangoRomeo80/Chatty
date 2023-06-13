@@ -114,7 +114,5 @@ export class ChattyServer {
   }
 
   // Method to start socket server
-  private socketIOConnections(io: Server): void {
-
-  }
+  private socketIOConnections(io: Server): void {}
 }
