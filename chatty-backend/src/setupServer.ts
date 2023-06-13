@@ -21,6 +21,7 @@ import { createClient } from 'redis' // import redis module for handling redis c
 import { createAdapter } from '@socket.io/redis-adapter' // import redis adapter module for handling redis adapter
 import 'express-async-errors' // import express-async-errors module to handle async errors
 import { config } from './config'
+import applicationRoutes from './routes'
 
 // Class to setup the server
 export class ChattyServer {
@@ -70,7 +71,9 @@ export class ChattyServer {
   }
 
   // Method to setup routing middlewares
-  private routesMiddleware(app: Application): void {}
+  private routesMiddleware(app: Application): void {
+    applicationRoutes(app) // application routes
+  }
 
   // Method to setup global error handling middleware
   private globalErrorHandler(app: Application): void {}
