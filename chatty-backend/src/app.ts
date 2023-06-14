@@ -1,9 +1,9 @@
 // entry point for the backend
 // import dependencies
 import express, { Express } from 'express'
-import { ChattyServer } from './setupServer'
-import databaseConnection from './setupDatabase'
-import { config } from './config'
+import { ChattyServer } from '@root/setupServer'
+import databaseConnection from '@root/setupDatabase'
+import { config } from '@root/config'
 
 // App class
 class App {

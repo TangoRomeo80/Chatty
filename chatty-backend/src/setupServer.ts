@@ -21,12 +21,9 @@ import { createClient } from 'redis' // import redis module for handling redis c
 import { createAdapter } from '@socket.io/redis-adapter' // import redis adapter module for handling redis adapter
 import Logger from 'bunyan' // import bunyan module for handling logging
 import 'express-async-errors' // import express-async-errors module to handle async errors
-import { config } from './config' // import config variables
-import applicationRoutes from './routes' // import routing functionalities
-import {
-  CustomError,
-  IErrorResponse,
-} from './shared/globals/helpers/errorHandler' // import errorHandler functionalities
+import { config } from '@root/config' // import config variables
+import applicationRoutes from '@root/routes' // import routing functionalities
+import { CustomError, IErrorResponse } from '@global/helpers/errorHandler'
 
 const log: Logger = config.createLogger('setupServer.ts') // create a logger instance
 
