@@ -20,8 +20,12 @@ import { Server } from 'socket.io' // import socket.io module for handling socke
 import { createClient } from 'redis' // import redis module for handling redis client
 import { createAdapter } from '@socket.io/redis-adapter' // import redis adapter module for handling redis adapter
 import 'express-async-errors' // import express-async-errors module to handle async errors
-import { config } from './config'
-import applicationRoutes from './routes'
+import { config } from './config' // import config variables
+import applicationRoutes from './routes' // import routing functionalities
+import {
+  CustomError,
+  IErrorResponse,
+} from './shared/globals/helpers/errorHandler' // import errorHandler functionalities
 
 // Class to setup the server
 export class ChattyServer {
@@ -76,7 +80,27 @@ export class ChattyServer {
   }
 
   // Method to setup global error handling middleware
-  private globalErrorHandler(app: Application): void {}
+  private globalErrorHandler(app: Application): void {
+    app.all('*', (req: Request, res: Response) => {
+      res.status(HTTP_STATUS.NOT_FOUND).json({
+        message: `Can't find ${req.originalUrl} on this server!`,
+      })
+    })
+    app.use(
+      (
+        error: IErrorResponse,
+        _req: Request,
+        res: Response,
+        next: NextFunction
+      ) => {
+        console.log(error)
+        if (error instanceof CustomError) {
+          return res.status(error.statusCode).json(error.serializeErrors())
+        }
+        next()
+      }
+    )
+  }
 
   // Method to handle server http methods
   private async startServer(app: Application): Promise<void> {
