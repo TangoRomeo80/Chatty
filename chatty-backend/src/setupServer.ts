@@ -19,6 +19,7 @@ import HTTP_STATUS from 'http-status-codes' // import http status codes
 import { Server } from 'socket.io' // import socket.io module for handling socket server
 import { createClient } from 'redis' // import redis module for handling redis client
 import { createAdapter } from '@socket.io/redis-adapter' // import redis adapter module for handling redis adapter
+import Logger from 'bunyan' // import bunyan module for handling logging
 import 'express-async-errors' // import express-async-errors module to handle async errors
 import { config } from './config' // import config variables
 import applicationRoutes from './routes' // import routing functionalities
@@ -26,6 +27,8 @@ import {
   CustomError,
   IErrorResponse,
 } from './shared/globals/helpers/errorHandler' // import errorHandler functionalities
+
+const log: Logger = config.createLogger('setupServer.ts') // create a logger instance
 
 // Class to setup the server
 export class ChattyServer {
@@ -93,7 +96,7 @@ export class ChattyServer {
         res: Response,
         next: NextFunction
       ) => {
-        console.log(error)
+        log.error(error)
         if (error instanceof CustomError) {
           return res.status(error.statusCode).json(error.serializeErrors())
         }
@@ -110,7 +113,7 @@ export class ChattyServer {
       this.startHttpServer(httpServer)
       this.socketIOConnections(socketIO)
     } catch (error) {
-      console.log(error)
+      log.error(error)
     }
   }
 
@@ -135,9 +138,9 @@ export class ChattyServer {
 
   // Method to start http server
   private startHttpServer(httpServer: http.Server): void {
-    console.log(`Server started with process id ${process.pid}`)
+    log.info(`Server started with process id ${process.pid}`)
     httpServer.listen(config.PORT, () => {
-      console.log(`Chatty server started on port ${config.PORT}`)
+      log.info(`Chatty server started on port ${config.PORT}`)
     })
   }
 
