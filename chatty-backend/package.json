@@ -4,8 +4,10 @@
   "description": "Backend for chatty application",
   "main": "app.js",
   "scripts": {
+    "start": "nodemon build/app.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon -r tsconfig-paths/register src/app.ts | npx bunyan"
+    "dev": "nodemon -r tsconfig-paths/register src/app.ts | npx bunyan",
+    "build": "tsc -p ."
   },
   "author": "Tanzeem Rahat",
   "license": "MIT",
