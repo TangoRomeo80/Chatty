@@ -17,6 +17,7 @@ class App {
 
   private loadConfig(): void {
     config.validateConfig() // Load environment variables
+    config.cloudinaryConfig() // Configure cloudinary
   }
 }
 
