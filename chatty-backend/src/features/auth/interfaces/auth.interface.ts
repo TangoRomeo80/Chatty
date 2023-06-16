@@ -4,6 +4,7 @@ import { Document } from 'mongoose'
 import { ObjectId } from 'mongodb'
 // import { IUserDocument } from '@user/interfaces/user.interface';
 
+// add currentUser to the Request interface
 declare global {
   namespace Express {
     interface Request {
@@ -12,6 +13,7 @@ declare global {
   }
 }
 
+// Interface for authentication payload
 export interface AuthPayload {
   userId: string
   uId: string
@@ -21,6 +23,7 @@ export interface AuthPayload {
   iat?: number
 }
 
+// Interface for authentication document
 export interface IAuthDocument extends Document {
   _id: string | ObjectId
   uId: string
@@ -35,6 +38,7 @@ export interface IAuthDocument extends Document {
   hashPassword(password: string): Promise<string>
 }
 
+// Interface for signup data
 export interface ISignUpData {
   _id: ObjectId
   uId: string
@@ -44,6 +48,7 @@ export interface ISignUpData {
   avatarColor: string
 }
 
+// Interface for authenticaion job
 export interface IAuthJob {
   value?: string | IAuthDocument
 }
