@@ -19,9 +19,11 @@ class Config {
   public CLOUDINARY_NAME: string | undefined
   public CLOUDINARY_API_KEY: string | undefined
   public CLOUDINARY_API_SECRET: string | undefined
+  public SALT_ROUND: number | undefined
 
   private readonly DEFAULT_NODE_ENV: string = 'development'
   private readonly DEFAULT_PORT: string = '5000'
+  private readonly DEFAULT_SALT_ROUND: number = 10
 
   constructor() {
     this.DATABASE_URL = process.env.DATABASE_URL
@@ -35,6 +37,7 @@ class Config {
     this.CLOUDINARY_NAME = process.env.CLOUDINARY_NAME
     this.CLOUDINARY_API_KEY = process.env.CLOUDINARY_API_KEY
     this.CLOUDINARY_API_SECRET = process.env.CLOUDINARY_API_SECRET
+    this.SALT_ROUND = Number(process.env.SALT_ROUND) || this.DEFAULT_SALT_ROUND
   }
 
   // create a logger instance
