@@ -10,6 +10,7 @@ import { IAuthDocument, ISignUpData } from '@auth/interfaces/auth.interface'
 import { Helpers } from '@global/helpers/helpers'
 import { UploadApiResponse } from 'cloudinary'
 import { uploads } from '@global/helpers/cloudinaryUpload'
+import HTTP_STATUS from 'http-status-codes'
 
 // signup class
 export class SignUp {
@@ -46,6 +47,8 @@ export class SignUp {
     if (!result?.public_id) {
       throw new BadRequestError('File upload: Error occurred. Try again.')
     }
+
+    
   }
 
   // Method to create new signup data
