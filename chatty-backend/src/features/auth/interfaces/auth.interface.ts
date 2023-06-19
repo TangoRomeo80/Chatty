@@ -2,7 +2,7 @@
 // Import dependencies
 import { Document } from 'mongoose'
 import { ObjectId } from 'mongodb'
-// import { IUserDocument } from '@user/interfaces/user.interface';
+import { IUserDocument } from '@user/interfaces/user.interface'
 
 // add currentUser to the Request interface
 declare global {
@@ -50,5 +50,5 @@ export interface ISignUpData {
 
 // Interface for authenticaion job
 export interface IAuthJob {
-  value?: string | IAuthDocument
+  value?: string | IAuthDocument | IUserDocument
 }
