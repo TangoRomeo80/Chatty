@@ -7,19 +7,21 @@ import { BullAdapter } from '@bull-board/api/bullAdapter'
 import { ExpressAdapter } from '@bull-board/express'
 import { config } from '@root/config'
 import { IAuthJob } from '@auth/interfaces/auth.interface'
+import { IUserJob } from '@user/interfaces/user.interface'
 
-type IBaseJobData = IAuthJob
-//   | IEmailJob
-//   | IPostJobData
-//   | IReactionJob
-//   | ICommentJob
-//   | IFollowerJobData
-//   | IBlockedUserJobData
-//   | INotificationJobData
-//   | IFileImageJobData
-//   | IChatJobData
-//   | IMessageData
-//   | IUserJob
+type IBaseJobData =
+  | IAuthJob
+  //   | IEmailJob
+  //   | IPostJobData
+  //   | IReactionJob
+  //   | ICommentJob
+  //   | IFollowerJobData
+  //   | IBlockedUserJobData
+  //   | INotificationJobData
+  //   | IFileImageJobData
+  //   | IChatJobData
+  //   | IMessageData
+  | IUserJob
 
 // Initialize job adapters
 let bullAdapters: BullAdapter[] = []
