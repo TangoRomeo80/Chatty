@@ -6,6 +6,12 @@ import { AuthModel } from '@auth/models/auth.schema'
 import { Helpers } from '@global/helpers/helpers'
 
 class AuthService {
+  // create auth user
+  public async createAuthUser(data: IAuthDocument): Promise<void> {
+    await AuthModel.create(data)
+  }
+
+  // check if user exists
   public async getUserByUsernameOrEmail(
     username: string,
     email: string
