@@ -14,7 +14,7 @@ import HTTP_STATUS from 'http-status-codes'
 import { config } from '@root/config'
 import { IUserDocument } from '@user/interfaces/user.interface'
 import { UserCache } from '@service/redis/user.cache'
-import { omit } from 'lodash'
+// import { omit } from 'lodash'
 import JWT from 'jsonwebtoken'
 import { authQueue } from '@service/queues/auth.queue'
 import { userQueue } from '@service/queues/user.queue'
@@ -68,14 +68,14 @@ export class SignUp {
     await userCache.saveUserToCache(`${userObjectId}`, uId, userDataForCache)
 
     // Add data to database
-    omit(userDataForCache, [
-      'uid',
-      'username',
-      'email',
-      'password',
-      'avatarColor',
-    ])
-    authQueue.addAuthUserJob('addAuthUserToDB', { value: userDataForCache })
+    // omit(userDataForCache, [
+    //   'uid',
+    //   'username',
+    //   'email',
+    //   'password',
+    //   'avatarColor',
+    // ])
+    authQueue.addAuthUserJob('addAuthUserToDB', { value: authData })
     userQueue.addUserJob('addUserToDB', { value: userDataForCache })
 
     // Create token and send response

@@ -10,7 +10,10 @@ export default (app: Application): void => {
   // Routes creation function
   const routes = () => {
     app.use('/queues', serverAdapter.getRouter()) // routes for job queues
-    app.use(`${BASE_PATH}/auth`, authRoutes.routes()) // routes for auth
+
+    // routes for auth
+    app.use(`${BASE_PATH}/auth`, authRoutes.routes())
+    app.use(`${BASE_PATH}/auth`, authRoutes.signoutRoute())
   }
   routes()
 }
