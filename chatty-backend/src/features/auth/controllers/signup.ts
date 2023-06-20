@@ -14,7 +14,8 @@ import HTTP_STATUS from 'http-status-codes'
 import { config } from '@root/config'
 import { IUserDocument } from '@user/interfaces/user.interface'
 import { UserCache } from '@service/redis/user.cache'
-import { omit, Omit } from 'lodash'
+import { omit } from 'lodash'
+import JWT from 'jsonwebtoken'
 import { authQueue } from '@service/queues/auth.queue'
 import { userQueue } from '@service/queues/user.queue'
 
@@ -75,10 +76,28 @@ export class SignUp {
     authQueue.addAuthUserJob('addAuthUserToDB', { value: userDataForCache })
     userQueue.addUserJob('addUserToDB', { value: userDataForCache })
 
+    // Create token and send response
+    const userJwt: string = SignUp.prototype.signToken(authData, userObjectId)
+    req.session = { jwt: userJwt }
     res.status(HTTP_STATUS.CREATED).json({
       message: 'User created successfully',
-      authData,
+      user: userDataForCache,
+      token: userJwt,
     })
+  }
+
+  // Method to create new token
+  private signToken(data: IAuthDocument, userObjectId: ObjectId): string {
+    return JWT.sign(
+      {
+        userId: userObjectId,
+        uId: data.uId,
+        email: data.email,
+        username: data.username,
+        avatarColor: data.avatarColor,
+      },
+      config.JWT_SECRET!
+    )
   }
 
   // Method to create new signup data
