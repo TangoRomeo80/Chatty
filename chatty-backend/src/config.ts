@@ -20,6 +20,10 @@ class Config {
   public CLOUDINARY_API_KEY: string | undefined
   public CLOUDINARY_API_SECRET: string | undefined
   public SALT_ROUND: number | undefined
+  public SENDER_EMAIL: string | undefined
+  public SENDER_EMAIL_PASSWORD: string | undefined
+  public SENDGRID_API_KEY: string | undefined
+  public SENDGRID_SENDER: string | undefined
 
   private readonly DEFAULT_NODE_ENV: string = 'development'
   private readonly DEFAULT_PORT: string = '5000'
@@ -38,6 +42,10 @@ class Config {
     this.CLOUDINARY_API_KEY = process.env.CLOUDINARY_API_KEY
     this.CLOUDINARY_API_SECRET = process.env.CLOUDINARY_API_SECRET
     this.SALT_ROUND = Number(process.env.SALT_ROUND) || this.DEFAULT_SALT_ROUND
+    this.SENDER_EMAIL = process.env.SENDER_EMAIL || ''
+    this.SENDER_EMAIL_PASSWORD = process.env.SENDER_EMAIL_PASSWORD || ''
+    this.SENDGRID_API_KEY = process.env.SENDGRID_API_KEY || ''
+    this.SENDGRID_SENDER = process.env.SENDGRID_SENDER || ''
   }
 
   // create a logger instance
@@ -60,7 +68,6 @@ class Config {
       api_secret: this.CLOUDINARY_API_SECRET,
     })
   }
-
 }
 
 // Export an instance of the Config class
