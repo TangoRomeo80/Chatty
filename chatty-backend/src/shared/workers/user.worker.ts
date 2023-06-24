@@ -1,4 +1,4 @@
-// Worker to save user info to db
+// Worker for user handling
 // import dependencies
 import { DoneCallback, Job } from 'bull'
 import Logger from 'bunyan'
