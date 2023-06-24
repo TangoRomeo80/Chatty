@@ -1,4 +1,4 @@
-// Worker to save auth info to db
+// Worker for authenticaiton handling
 // import dependencies
 import { DoneCallback, Job } from 'bull'
 import Logger from 'bunyan'
