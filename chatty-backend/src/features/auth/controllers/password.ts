@@ -17,7 +17,7 @@ import { resetPasswordTemplate } from '@service/emails/templates/resetPassword/r
 import { BadRequestError } from '@global/helpers/errorHandler'
 
 export class Password {
-  // method to send email to reset password
+  // method to send email to reset password and create resett email link
   @joiValidation(emailSchema)
   public async create(req: Request, res: Response): Promise<void> {
     const { email } = req.body
@@ -26,7 +26,7 @@ export class Password {
       email
     )
     if (!existingUser) {
-      throw new BadRequestError('Invalid credentials')
+      throw new BadRequestError('Invalid credentials, No user found with this email.')
     }
     // Generate random token
     const randomBytes: Buffer = await Promise.resolve(crypto.randomBytes(20))
@@ -52,12 +52,13 @@ export class Password {
     res.status(HTTP_STATUS.OK).json({ message: 'Password reset email sent.' })
   }
 
+  // Method to reset and update password
   @joiValidation(passwordSchema)
   public async update(req: Request, res: Response): Promise<void> {
     const { password, confirmPassword } = req.body
     const { token } = req.params
     if (password !== confirmPassword) {
-      throw new BadRequestError('Passwords do not match')
+      throw new BadRequestError('Password and confirmed password do not match')
     }
     const existingUser: IAuthDocument =
       await authService.getAuthUserByPasswordToken(token)
