@@ -1,3 +1,5 @@
+// config file for jest for testing
+
 import type { Config } from '@jest/types'
 
 const config: Config.InitialOptions = {
