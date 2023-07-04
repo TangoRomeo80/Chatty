@@ -83,7 +83,9 @@ describe('SignUp', () => {
     const res: Response = authMockResponse()
     SignUp.prototype.create(req, res).catch((error: CustomError) => {
       expect(error.statusCode).toEqual(400)
-      expect(error.serializeErrors().message).toEqual('Invalid username')
+      expect(error.serializeErrors().message).toEqual(
+        'Invalid username, must be at most 8 characters long'
+      )
     })
   })
 
