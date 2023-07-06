@@ -24,6 +24,7 @@ import 'express-async-errors' // import express-async-errors module to handle as
 import { config } from '@root/config' // import config variables
 import applicationRoutes from '@root/routes' // import routing functionalities
 import { CustomError, IErrorResponse } from '@global/helpers/errorHandler'
+import { SocketIOPostHandler } from '@socket/post.socket'
 
 const log: Logger = config.createLogger('setupServer.ts') // create a logger instance
 
@@ -143,6 +144,9 @@ export class ChattyServer {
 
   // Method to start socket server
   private socketIOConnections(io: Server): void {
-    log.info('SocketIOconnections')
+    // create socket handler objects
+    const postSocketHandler: SocketIOPostHandler = new SocketIOPostHandler(io)
+    // listen to socket connections
+    postSocketHandler.listen()
   }
 }
