@@ -1,8 +1,5 @@
 // All routes for the auth feature are defined in this file
 // Import dependencies
-// import { Password } from '@auth/controllers/password'
-// import { SignIn } from '@auth/controllers/signin'
-// import { SignOut } from '@auth/controllers/signout'
 import { SignIn } from '@auth/controllers/signin'
 import { SignOut } from '@auth/controllers/signout'
 import { SignUp } from '@auth/controllers/signup'
