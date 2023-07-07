@@ -4,6 +4,7 @@ import { authRoutes } from '@auth/routes/authRoutes'
 import { Application } from 'express'
 import { serverAdapter } from '@service/queues/base.queue'
 import { currentUserRoutes } from '@auth/routes/currentRoutes'
+import { postRoutes } from '@post/routes/postRoutes'
 import { authMiddleware } from '@global/helpers/authMiddleware'
 
 const BASE_PATH = '/api/v1'
@@ -22,6 +23,12 @@ export default (app: Application): void => {
       `${BASE_PATH}/currentuser`,
       authMiddleware.verifyUser,
       currentUserRoutes.routes()
+    )
+
+    app.use(
+      `${BASE_PATH}/post`,
+      authMiddleware.verifyUser,
+      postRoutes.routes()
     )
   }
   routes()
