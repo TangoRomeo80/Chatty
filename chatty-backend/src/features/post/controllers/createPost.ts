@@ -3,6 +3,7 @@
 import { joiValidation } from '@global/decorators/joiValidation.decorators'
 import { IPostDocument } from '@post/interfaces/post.interface'
 import { postSchema } from '@post/schemes/post.schemes'
+import { postQueue } from '@service/queues/post.queue'
 import { PostCache } from '@service/redis/post.cache'
 import { socketIOPostObject } from '@socket/post.socket'
 import { Request, Response } from 'express'
@@ -47,6 +48,11 @@ export class Create {
       currentUserId: `${req.currentUser!.userId}`,
       uId: `${req.currentUser!.uId}`,
       createdPost,
+    })
+    // add post to queue for saving to db
+    postQueue.addPostJob('addPostToDB', {
+      key: req.currentUser!.userId,
+      value: createdPost,
     })
     // send response
     res
