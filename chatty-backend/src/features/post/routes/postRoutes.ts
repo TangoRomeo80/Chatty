@@ -33,11 +33,11 @@ class PostRoutes {
       authMiddleware.checkAuthentication,
       Create.prototype.post
     )
-    // this.router.post(
-    //   '/post/image/post',
-    //   authMiddleware.checkAuthentication,
-    //   Create.prototype.postWithImage
-    // )
+    this.router.post(
+      '/image/post',
+      authMiddleware.checkAuthentication,
+      Create.prototype.postWithImage
+    )
     // this.router.post(
     //   '/post/video/post',
     //   authMiddleware.checkAuthentication,
