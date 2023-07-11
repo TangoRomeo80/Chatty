@@ -25,7 +25,7 @@ class PostService {
     await Promise.all([post, user])
   }
 
-  // Get post from db
+  // Get posts from db
   public async getPosts(
     query: IGetPostsQuery,
     skip = 0,

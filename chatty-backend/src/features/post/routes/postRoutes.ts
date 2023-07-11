@@ -3,6 +3,7 @@
 import express, { Router } from 'express'
 import { authMiddleware } from '@global/helpers/authMiddleware'
 import { Create } from '@post/controllers/createPost'
+import { Get } from '@post/controllers/getPosts'
 
 class PostRoutes {
   private router: Router
@@ -12,27 +13,30 @@ class PostRoutes {
   }
 
   public routes(): Router {
-    // this.router.get(
-    //   '/post/all/:page',
-    //   authMiddleware.checkAuthentication,
-    //   Get.prototype.posts
-    // )
-    // this.router.get(
-    //   '/post/images/:page',
-    //   authMiddleware.checkAuthentication,
-    //   Get.prototype.postsWithImages
-    // )
+    // route to get all posts
+    this.router.get(
+      '/all/:page',
+      authMiddleware.checkAuthentication,
+      Get.prototype.posts
+    )
+    // route to get all posts with images
+    this.router.get(
+      '/images/:page',
+      authMiddleware.checkAuthentication,
+      Get.prototype.postsWithImages
+    )
     // this.router.get(
     //   '/post/videos/:page',
     //   authMiddleware.checkAuthentication,
     //   Get.prototype.postsWithVideos
     // )
-
+      // route to create a post
     this.router.post(
       '/',
       authMiddleware.checkAuthentication,
       Create.prototype.post
     )
+    // route to create a post with image
     this.router.post(
       '/image/post',
       authMiddleware.checkAuthentication,
