@@ -4,6 +4,7 @@ import express, { Router } from 'express'
 import { authMiddleware } from '@global/helpers/authMiddleware'
 import { Create } from '@post/controllers/createPost'
 import { Get } from '@post/controllers/getPosts'
+import { Delete } from '@post/controllers/deletePost'
 
 class PostRoutes {
   private router: Router
@@ -30,7 +31,7 @@ class PostRoutes {
     //   authMiddleware.checkAuthentication,
     //   Get.prototype.postsWithVideos
     // )
-      // route to create a post
+    // route to create a post
     this.router.post(
       '/',
       authMiddleware.checkAuthentication,
@@ -63,12 +64,12 @@ class PostRoutes {
     //   authMiddleware.checkAuthentication,
     //   Update.prototype.postWithVideo
     // )
-
-    // this.router.delete(
-    //   '/post/:postId',
-    //   authMiddleware.checkAuthentication,
-    //   Delete.prototype.post
-    // )
+    // route to delete a post
+    this.router.delete(
+      '/:postId',
+      authMiddleware.checkAuthentication,
+      Delete.prototype.post
+    )
 
     return this.router
   }
