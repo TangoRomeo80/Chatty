@@ -5,6 +5,7 @@ import { authMiddleware } from '@global/helpers/authMiddleware'
 import { Create } from '@post/controllers/createPost'
 import { Get } from '@post/controllers/getPosts'
 import { Delete } from '@post/controllers/deletePost'
+import { Update } from '@post/controllers/updatePost'
 
 class PostRoutes {
   private router: Router
@@ -48,17 +49,18 @@ class PostRoutes {
     //   authMiddleware.checkAuthentication,
     //   Create.prototype.postWithVideo
     // )
-
-    // this.router.put(
-    //   '/post/:postId',
-    //   authMiddleware.checkAuthentication,
-    //   Update.prototype.posts
-    // )
-    // this.router.put(
-    //   '/post/image/:postId',
-    //   authMiddleware.checkAuthentication,
-    //   Update.prototype.postWithImage
-    // )
+    // route to update a post
+    this.router.put(
+      '/:postId',
+      authMiddleware.checkAuthentication,
+      Update.prototype.posts
+    )
+    // route to update a post with image
+    this.router.put(
+      '/image/:postId',
+      authMiddleware.checkAuthentication,
+      Update.prototype.postWithImage
+    )
     // this.router.put(
     //   '/post/video/:postId',
     //   authMiddleware.checkAuthentication,

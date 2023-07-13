@@ -1,3 +1,5 @@
+// Controller for deleting post
+// import dependencies
 import { Request, Response } from 'express'
 import { PostCache } from '@service/redis/post.cache'
 import HTTP_STATUS from 'http-status-codes'
