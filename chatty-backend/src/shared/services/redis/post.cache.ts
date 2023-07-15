@@ -6,9 +6,9 @@ import { config } from '@root/config'
 import { ServerError } from '@global/helpers/errorHandler'
 import {
   IPostDocument,
-  IReactions,
   ISavePostToCache,
 } from '@post/interfaces/post.interface'
+import { IReactions } from '@reaction/interfaces/reaction.interface'
 import { Helpers } from '@global/helpers/helpers'
 import { RedisCommandRawReply } from '@redis/client/dist/lib/commands'
 

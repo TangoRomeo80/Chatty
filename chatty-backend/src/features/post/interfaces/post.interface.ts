@@ -3,15 +3,7 @@
 // import { IReactions } from '@root/features/reactions/interfaces/reaction.interface'
 import { ObjectId } from 'mongodb'
 import mongoose, { Document } from 'mongoose'
-
-export interface IReactions {
-  like: number
-  love: number
-  happy: number
-  sad: number
-  wow: number
-  angry: number
-}
+import { IReactions } from '@root/features/reactions/interfaces/reaction.interface'
 
 export interface IPostDocument extends Document {
   _id?: string | mongoose.Types.ObjectId
