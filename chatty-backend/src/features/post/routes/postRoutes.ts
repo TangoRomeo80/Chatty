@@ -6,6 +6,7 @@ import { Create } from '@post/controllers/createPost'
 import { Get } from '@post/controllers/getPosts'
 import { Delete } from '@post/controllers/deletePost'
 import { Update } from '@post/controllers/updatePost'
+import { reactionRoutes } from '@reaction/routes/reactionRoutes'
 
 class PostRoutes {
   private router: Router
@@ -15,6 +16,9 @@ class PostRoutes {
   }
 
   public routes(): Router {
+    // route for reactions
+    this.router.use('/reaction', reactionRoutes.routes())
+
     // route to get all posts
     this.router.get(
       '/all/:page',
