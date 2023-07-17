@@ -34,6 +34,7 @@ export class Add {
       profilePicture,
     } as IReactionDocument
 
+    // Add reaction to cache
     await reactionCache.savePostReactionToCache(
       postId,
       reactionObject,
@@ -41,7 +42,7 @@ export class Add {
       type,
       previousReaction
     )
-
+    // Send http response
     res.status(HTTP_STATUS.OK).json({ message: 'Reaction added successfully' })
   }
 }
