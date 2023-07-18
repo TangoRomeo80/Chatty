@@ -1,14 +1,14 @@
-import express, { Router } from 'express';
-import { authMiddleware } from '@global/helpers/authMiddleware';
-import { Add } from '@reaction/controllers/addReactions';
-// import { Remove } from '@reaction/controllers/remove-reaction';
-// import { Get } from '@reaction/controllers/get-reactions';
+import express, { Router } from 'express'
+import { authMiddleware } from '@global/helpers/authMiddleware'
+import { Add } from '@reaction/controllers/addReactions'
+// import { Remove } from '@reaction/controllers/remove-reaction'
+// import { Get } from '@reaction/controllers/get-reactions'
 
 class ReactionRoutes {
-  private router: Router;
+  private router: Router
 
   constructor() {
-    this.router = express.Router();
+    this.router = express.Router()
   }
 
   public routes(): Router {
@@ -20,7 +20,12 @@ class ReactionRoutes {
     // );
     // this.router.get('/post/reactions/username/:username', authMiddleware.checkAuthentication, Get.prototype.reactionsByUsername);
 
-    this.router.post('/', authMiddleware.checkAuthentication, Add.prototype.reaction);
+    // Create a reaction
+    this.router.post(
+      '/post/reaction',
+      authMiddleware.checkAuthentication,
+      Add.prototype.reaction
+    )
 
     // this.router.delete(
     //   '/post/reaction/:postId/:previousReaction/:postReactions',
@@ -28,8 +33,8 @@ class ReactionRoutes {
     //   Remove.prototype.reaction
     // );
 
-    return this.router;
+    return this.router
   }
 }
 
-export const reactionRoutes: ReactionRoutes = new ReactionRoutes();
+export const reactionRoutes: ReactionRoutes = new ReactionRoutes()

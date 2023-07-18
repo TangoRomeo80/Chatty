@@ -16,18 +16,15 @@ class PostRoutes {
   }
 
   public routes(): Router {
-    // route for reactions
-    this.router.use('/reaction', reactionRoutes.routes())
-
-    // route to get all posts
+    //get all posts
     this.router.get(
-      '/all/:page',
+      '/post/all/:page',
       authMiddleware.checkAuthentication,
       Get.prototype.posts
     )
-    // route to get all posts with images
+    // get all posts with images
     this.router.get(
-      '/images/:page',
+      '/post/images/:page',
       authMiddleware.checkAuthentication,
       Get.prototype.postsWithImages
     )
@@ -36,15 +33,16 @@ class PostRoutes {
     //   authMiddleware.checkAuthentication,
     //   Get.prototype.postsWithVideos
     // )
-    // route to create a post
+
+    // create post
     this.router.post(
-      '/',
+      '/post',
       authMiddleware.checkAuthentication,
       Create.prototype.post
     )
-    // route to create a post with image
+    // create post with image
     this.router.post(
-      '/image/post',
+      '/post/image/post',
       authMiddleware.checkAuthentication,
       Create.prototype.postWithImage
     )
@@ -53,15 +51,16 @@ class PostRoutes {
     //   authMiddleware.checkAuthentication,
     //   Create.prototype.postWithVideo
     // )
-    // route to update a post
+
+    // update post
     this.router.put(
-      '/:postId',
+      '/post/:postId',
       authMiddleware.checkAuthentication,
       Update.prototype.posts
     )
-    // route to update a post with image
+    // update post with image
     this.router.put(
-      '/image/:postId',
+      '/post/image/:postId',
       authMiddleware.checkAuthentication,
       Update.prototype.postWithImage
     )
@@ -70,9 +69,10 @@ class PostRoutes {
     //   authMiddleware.checkAuthentication,
     //   Update.prototype.postWithVideo
     // )
-    // route to delete a post
+
+    // delete post
     this.router.delete(
-      '/:postId',
+      '/post/:postId',
       authMiddleware.checkAuthentication,
       Delete.prototype.post
     )

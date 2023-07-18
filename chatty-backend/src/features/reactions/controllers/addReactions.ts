@@ -10,6 +10,7 @@ import {
 import { ReactionCache } from '@service/redis/reaction.cache'
 import { joiValidation } from '@global/decorators/joiValidation.decorators'
 import { addReactionSchema } from '@reaction/schemes/reaction.schemes'
+import { reactionQueue } from '@service/queues/reaction.queue'
 
 const reactionCache: ReactionCache = new ReactionCache()
 
@@ -42,6 +43,19 @@ export class Add {
       type,
       previousReaction
     )
+
+    // Add reaction to db
+    const databaseReactionData: IReactionJob = {
+      postId,
+      userTo,
+      userFrom: req.currentUser!.userId,
+      username: req.currentUser!.username,
+      type,
+      previousReaction,
+      reactionObject,
+    }
+    reactionQueue.addReactionJob('addReactionToDB', databaseReactionData)
+
     // Send http response
     res.status(HTTP_STATUS.OK).json({ message: 'Reaction added successfully' })
   }

@@ -1,8 +1,5 @@
-// All routes for the current user feature are defined in this file
-// Import dependencies
 import { CurrentUser } from '@auth/controllers/currentUser'
 import { authMiddleware } from '@global/helpers/authMiddleware'
-// import { authMiddleware } from '@global/helpers/auth-middleware';
 import express, { Router } from 'express'
 
 class CurrentUserRoutes {
@@ -13,9 +10,8 @@ class CurrentUserRoutes {
   }
 
   public routes(): Router {
-    // route to get current user
     this.router.get(
-      '/getcurrentuser',
+      '/currentuser',
       authMiddleware.checkAuthentication,
       CurrentUser.prototype.read
     )
