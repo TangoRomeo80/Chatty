@@ -6,7 +6,6 @@ import { Create } from '@post/controllers/createPost'
 import { Get } from '@post/controllers/getPosts'
 import { Delete } from '@post/controllers/deletePost'
 import { Update } from '@post/controllers/updatePost'
-import { reactionRoutes } from '@reaction/routes/reactionRoutes'
 
 class PostRoutes {
   private router: Router
