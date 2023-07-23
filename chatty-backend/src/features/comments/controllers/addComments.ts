@@ -15,6 +15,7 @@ import { commentQueue } from '@service/queues/comment.queue'
 const commentCache: CommentCache = new CommentCache()
 
 export class Add {
+  // Add comment
   @joiValidation(addCommentSchema)
   public async comment(req: Request, res: Response): Promise<void> {
     const { userTo, postId, profilePicture, comment } = req.body
@@ -28,11 +29,12 @@ export class Add {
       comment,
       createdAt: new Date(),
     } as ICommentDocument
+    // Save comment to cache
     await commentCache.savePostCommentToCache(
       postId,
       JSON.stringify(commentData)
     )
-
+    // Add comment to database
     const databaseCommentData: ICommentJob = {
       postId,
       userTo,
@@ -41,6 +43,7 @@ export class Add {
       comment: commentData,
     }
     commentQueue.addCommentJob('addCommentToDB', databaseCommentData)
+    // Send response
     res.status(HTTP_STATUS.OK).json({ message: 'Comment created successfully' })
   }
 }
