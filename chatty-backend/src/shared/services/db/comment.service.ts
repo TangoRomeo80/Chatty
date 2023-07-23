@@ -72,3 +72,5 @@ class CommentService {
     return commentsNamesList
   }
 }
+
+export const commentService: CommentService = new CommentService()
