@@ -25,6 +25,7 @@ import { config } from '@root/config' // import config variables
 import applicationRoutes from '@root/routes' // import routing functionalities
 import { CustomError, IErrorResponse } from '@global/helpers/errorHandler'
 import { SocketIOPostHandler } from '@socket/post.socket'
+import { SocketIOFollowerHandler } from '@socket/follower.socket'
 
 const log: Logger = config.createLogger('setupServer.ts') // create a logger instance
 
@@ -146,7 +147,10 @@ export class ChattyServer {
   private socketIOConnections(io: Server): void {
     // create socket handler objects
     const postSocketHandler: SocketIOPostHandler = new SocketIOPostHandler(io)
+    const followerSocketHandler: SocketIOFollowerHandler =
+      new SocketIOFollowerHandler(io)
     // listen to socket connections
     postSocketHandler.listen()
+    followerSocketHandler.listen()
   }
 }
