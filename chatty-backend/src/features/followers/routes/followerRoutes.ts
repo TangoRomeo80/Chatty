@@ -3,7 +3,7 @@
 import express, { Router } from 'express'
 import { authMiddleware } from '@global/helpers/authMiddleware'
 import { Add } from '@follower/controllers/followerUser'
-// import { Remove } from '@follower/controllers/unfollow-user'
+import { Remove } from '@follower/controllers/unfollowUser'
 // import { Get } from '@follower/controllers/get-followers'
 // import { AddUser } from '@follower/controllers/block-user'
 
@@ -31,11 +31,11 @@ class FollowerRoutes {
       authMiddleware.checkAuthentication,
       Add.prototype.follower
     )
-    // this.router.put(
-    //   '/user/unfollow/:followeeId/:followerId',
-    //   authMiddleware.checkAuthentication,
-    //   Remove.prototype.follower
-    // )
+    this.router.put(
+      '/user/unfollow/:followeeId/:followerId',
+      authMiddleware.checkAuthentication,
+      Remove.prototype.follower
+    )
     // this.router.put(
     //   '/user/block/:followerId',
     //   authMiddleware.checkAuthentication,
