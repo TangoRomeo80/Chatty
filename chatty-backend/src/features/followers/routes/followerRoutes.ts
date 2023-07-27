@@ -4,7 +4,7 @@ import express, { Router } from 'express'
 import { authMiddleware } from '@global/helpers/authMiddleware'
 import { Add } from '@follower/controllers/followerUser'
 import { Remove } from '@follower/controllers/unfollowUser'
-// import { Get } from '@follower/controllers/get-followers'
+import { Get } from '@follower/controllers/getFollowers'
 // import { AddUser } from '@follower/controllers/block-user'
 
 class FollowerRoutes {
@@ -15,16 +15,16 @@ class FollowerRoutes {
   }
 
   public routes(): Router {
-    // this.router.get(
-    //   '/user/following',
-    //   authMiddleware.checkAuthentication,
-    //   Get.prototype.userFollowing
-    // )
-    // this.router.get(
-    //   '/user/followers/:userId',
-    //   authMiddleware.checkAuthentication,
-    //   Get.prototype.userFollowers
-    // )
+    this.router.get(
+      '/user/following',
+      authMiddleware.checkAuthentication,
+      Get.prototype.userFollowing
+    )
+    this.router.get(
+      '/user/followers/:userId',
+      authMiddleware.checkAuthentication,
+      Get.prototype.userFollowers
+    )
 
     this.router.put(
       '/user/follow/:followerId',
