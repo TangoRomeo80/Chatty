@@ -5,7 +5,7 @@ import { authMiddleware } from '@global/helpers/authMiddleware'
 import { Add } from '@follower/controllers/followerUser'
 import { Remove } from '@follower/controllers/unfollowUser'
 import { Get } from '@follower/controllers/getFollowers'
-// import { AddUser } from '@follower/controllers/block-user'
+import { AddUser } from '@follower/controllers/blockUser'
 
 class FollowerRoutes {
   private router: Router
@@ -15,6 +15,7 @@ class FollowerRoutes {
   }
 
   public routes(): Router {
+    // Get followers and following
     this.router.get(
       '/user/following',
       authMiddleware.checkAuthentication,
@@ -25,7 +26,7 @@ class FollowerRoutes {
       authMiddleware.checkAuthentication,
       Get.prototype.userFollowers
     )
-
+    // Follow and unfollow a user
     this.router.put(
       '/user/follow/:followerId',
       authMiddleware.checkAuthentication,
@@ -36,16 +37,17 @@ class FollowerRoutes {
       authMiddleware.checkAuthentication,
       Remove.prototype.follower
     )
-    // this.router.put(
-    //   '/user/block/:followerId',
-    //   authMiddleware.checkAuthentication,
-    //   AddUser.prototype.block
-    // )
-    // this.router.put(
-    //   '/user/unblock/:followerId',
-    //   authMiddleware.checkAuthentication,
-    //   AddUser.prototype.unblock
-    // )
+    // Block and unblock a user
+    this.router.put(
+      '/user/block/:followerId',
+      authMiddleware.checkAuthentication,
+      AddUser.prototype.block
+    )
+    this.router.put(
+      '/user/unblock/:followerId',
+      authMiddleware.checkAuthentication,
+      AddUser.prototype.unblock
+    )
 
     return this.router
   }
