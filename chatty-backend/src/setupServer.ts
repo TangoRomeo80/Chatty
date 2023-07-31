@@ -27,6 +27,7 @@ import { CustomError, IErrorResponse } from '@global/helpers/errorHandler'
 import { SocketIOPostHandler } from '@socket/post.socket'
 import { SocketIOFollowerHandler } from '@socket/follower.socket'
 import { SocketIOUserHandler } from '@socket/user.socket'
+import { SocketIONotificationHandler } from '@socket/notificaiton.socket'
 
 const log: Logger = config.createLogger('setupServer.ts') // create a logger instance
 
@@ -151,9 +152,12 @@ export class ChattyServer {
     const followerSocketHandler: SocketIOFollowerHandler =
       new SocketIOFollowerHandler(io)
     const userSocketHandler: SocketIOUserHandler = new SocketIOUserHandler(io)
+    const notificationSocketHandler: SocketIONotificationHandler =
+      new SocketIONotificationHandler()
     // listen to socket connections
     postSocketHandler.listen()
     followerSocketHandler.listen()
     userSocketHandler.listen()
+    notificationSocketHandler.listen(io)
   }
 }
