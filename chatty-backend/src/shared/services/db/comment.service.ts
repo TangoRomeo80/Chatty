@@ -7,6 +7,8 @@ import {
   IQueryComment,
 } from '@comment/interfaces/comment.interface'
 import { CommentsModel } from '@comment/models/comment.schema'
+import { INotificationDocument } from '@notification/interfaces/notification.interface'
+import { NotificationModel } from '@notification/models/notification.schema'
 import { IPostDocument } from '@post/interfaces/post.interface'
 import { PostModel } from '@post/models/post.schema'
 import { UserCache } from '@service/redis/user.cache'
@@ -36,6 +38,24 @@ class CommentService {
       await Promise.all([comments, post, user])
 
     // Send notification to user
+    if (response[2].notifications.comments && userFrom !== userTo) {
+      const notificationModel: INotificationDocument = new NotificationModel()
+      const notifications = await notificationModel.insertNotification({
+        userFrom,
+        userTo,
+        message: `${username} commented on your post.`,
+        notificationType: 'comment',
+        entityId: new mongoose.Types.ObjectId(postId),
+        createdItemId: new mongoose.Types.ObjectId(response[0]._id!),
+        createdAt: new Date(),
+        comment: comment.comment,
+        post: response[1].post,
+        imgId: response[1].imgId!,
+        imgVersion: response[1].imgVersion!,
+        gifUrl: response[1].gifUrl!,
+        reaction: '',
+      })
+    }
   }
 
   // Get comments from db
