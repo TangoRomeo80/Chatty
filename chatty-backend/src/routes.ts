@@ -7,6 +7,7 @@ import { postRoutes } from '@post/routes/postRoutes'
 import { reactionRoutes } from '@reaction/routes/reactionRoutes'
 import { commentRoutes } from '@comment/routes/commentRoutes'
 import { followerRoutes } from '@follower/routes/followerRoutes'
+import { notificationRoutes } from '@notification/routes/notificationRoutes'
 // import { notificationRoutes } from '@notification/routes/notificationRoutes';
 // import { imageRoutes } from '@image/routes/imageRoutes';
 // import { chatRoutes } from '@chat/routes/chatRoutes';
@@ -31,7 +32,7 @@ export default (app: Application) => {
     app.use(BASE_PATH, authMiddleware.verifyUser, reactionRoutes.routes()) // Reaction functionality routes
     app.use(BASE_PATH, authMiddleware.verifyUser, commentRoutes.routes()) // Comment functionality routes
     app.use(BASE_PATH, authMiddleware.verifyUser, followerRoutes.routes()) // Follower functionality routes
-    // app.use(BASE_PATH, authMiddleware.verifyUser, notificationRoutes.routes());
+    app.use(BASE_PATH, authMiddleware.verifyUser, notificationRoutes.routes()) // Notification functionality routes
     // app.use(BASE_PATH, authMiddleware.verifyUser, imageRoutes.routes());
     // app.use(BASE_PATH, authMiddleware.verifyUser, chatRoutes.routes());
     // app.use(BASE_PATH, authMiddleware.verifyUser, userRoutes.routes());

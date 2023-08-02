@@ -17,7 +17,7 @@ import { PostModel } from '@post/models/post.schema'
 import { notificationTemplate } from '@service/emails/templates/notifications/notificationTemplate'
 import { emailQueue } from '@service/queues/email.queue'
 import { UserCache } from '@service/redis/user.cache'
-import { socketIONotificationObject } from '@socket/notificaiton.socket'
+import { socketIONotificationObject } from '@socket/notification.socket'
 import { IUserDocument } from '@user/interfaces/user.interface'
 import mongoose, { Query } from 'mongoose'
 

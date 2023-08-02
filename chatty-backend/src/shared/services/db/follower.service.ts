@@ -13,7 +13,7 @@ import { IUserDocument } from '@user/interfaces/user.interface'
 import { emailQueue } from '@service/queues/email.queue'
 import { UserCache } from '@service/redis/user.cache'
 import { map } from 'lodash'
-import { socketIONotificationObject } from '@socket/notificaiton.socket'
+import { socketIONotificationObject } from '@socket/notification.socket'
 import {
   INotificationDocument,
   INotificationTemplate,
