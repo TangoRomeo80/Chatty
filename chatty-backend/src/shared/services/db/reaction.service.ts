@@ -1,6 +1,8 @@
 // db functionalities for reaction
 // import dependencies
 import { Helpers } from '@global/helpers/helpers'
+import { INotificationDocument, INotificationTemplate } from '@notification/interfaces/notification.interface'
+import { NotificationModel } from '@notification/models/notification.schema'
 import { IPostDocument } from '@post/interfaces/post.interface'
 import { PostModel } from '@post/models/post.schema'
 import {
@@ -9,7 +11,10 @@ import {
   IReactionJob,
 } from '@reaction/interfaces/reaction.interface'
 import { ReactionModel } from '@reaction/models/reaction.schema'
+import { notificationTemplate } from '@service/emails/templates/notifications/notificationTemplate'
+import { emailQueue } from '@service/queues/email.queue'
 import { UserCache } from '@service/redis/user.cache'
+import { socketIONotificationObject } from '@socket/notification.socket'
 import { IUserDocument } from '@user/interfaces/user.interface'
 import { omit } from 'lodash'
 import mongoose from 'mongoose'
@@ -57,7 +62,42 @@ class ReactionService {
         ),
       ])) as unknown as [IUserDocument, IReactionDocument, IPostDocument]
 
-    // sends reactions notification to user
+    // send reactions notification to user
+    if (updatedReaction[0].notifications.reactions && userTo !== userFrom) {
+      const notificationModel: INotificationDocument = new NotificationModel()
+      const notifications = await notificationModel.insertNotification({
+        userFrom: userFrom as string,
+        userTo: userTo as string,
+        message: `${username} reacted to your post.`,
+        notificationType: 'reactions',
+        entityId: new mongoose.Types.ObjectId(postId),
+        createdItemId: new mongoose.Types.ObjectId(updatedReaction[1]._id!),
+        createdAt: new Date(),
+        comment: '',
+        post: updatedReaction[2].post,
+        imgId: updatedReaction[2].imgId!,
+        imgVersion: updatedReaction[2].imgVersion!,
+        gifUrl: updatedReaction[2].gifUrl!,
+        reaction: type!,
+      })
+      // emit notification to user
+      socketIONotificationObject.emit('insert notification', notifications, {
+        userTo,
+      })
+      // send email notification to user
+      const templateParams: INotificationTemplate = {
+        username: updatedReaction[0].username!,
+        message: `${username} reacted to your post.`,
+        header: 'Post Reaction Notification',
+      }
+      const template: string =
+        notificationTemplate.notificationMessageTemplate(templateParams)
+      emailQueue.addEmailJob('reactionsEmail', {
+        receiverEmail: updatedReaction[0].email!,
+        template,
+        subject: 'Post reaction notification',
+      })
+    }
   }
 
   // Remove reaction from db

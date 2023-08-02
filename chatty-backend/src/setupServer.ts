@@ -27,7 +27,7 @@ import { CustomError, IErrorResponse } from '@global/helpers/errorHandler'
 import { SocketIOPostHandler } from '@socket/post.socket'
 import { SocketIOFollowerHandler } from '@socket/follower.socket'
 import { SocketIOUserHandler } from '@socket/user.socket'
-import { SocketIONotificationHandler } from '@socket/notificaiton.socket'
+import { SocketIONotificationHandler } from '@socket/notification.socket'
 
 const log: Logger = config.createLogger('setupServer.ts') // create a logger instance
 
