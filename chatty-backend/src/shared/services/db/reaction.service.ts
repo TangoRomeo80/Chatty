@@ -80,9 +80,11 @@ class ReactionService {
         gifUrl: updatedReaction[2].gifUrl!,
         reaction: type!,
       })
+      // emit notification to user
       socketIONotificationObject.emit('insert notification', notifications, {
         userTo,
       })
+      // send email notification to user
       const templateParams: INotificationTemplate = {
         username: updatedReaction[0].username!,
         message: `${username} reacted to your post.`,
