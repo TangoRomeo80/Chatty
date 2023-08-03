@@ -4,7 +4,7 @@ import { Request, Response } from 'express'
 import { ObjectId } from 'mongodb'
 import HTTP_STATUS from 'http-status-codes'
 import { joiValidation } from '@global/decorators/joiValidation.decorators'
-import { addCommentSchema } from '@comment/schemes/comment.scheme'
+import { addCommentSchema } from '@comment/schemes/comment'
 import {
   ICommentDocument,
   ICommentJob,

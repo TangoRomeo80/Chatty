@@ -9,7 +9,7 @@ import {
 } from '@reaction/interfaces/reaction.interface'
 import { ReactionCache } from '@service/redis/reaction.cache'
 import { joiValidation } from '@global/decorators/joiValidation.decorators'
-import { addReactionSchema } from '@reaction/schemes/reaction.schemes'
+import { addReactionSchema } from '@reaction/schemes/reaction'
 import { reactionQueue } from '@service/queues/reaction.queue'
 
 const reactionCache: ReactionCache = new ReactionCache()
