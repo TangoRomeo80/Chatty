@@ -10,7 +10,7 @@ import {
   postSchema,
   postWithImageSchema,
   postWithVideoSchema,
-} from '@post/schemes/post.schemes'
+} from '@post/schemes/post'
 import { IPostDocument } from '@post/interfaces/post.interface'
 import { UploadApiResponse } from 'cloudinary'
 import { uploads } from '@global/helpers/cloudinaryUpload'
