@@ -73,16 +73,19 @@ export class Add {
       bgImageId,
       bgImageVersion,
     ])) as [IUserDocument, IUserDocument]
+    // Send socket event to the client
     socketIOImageObject.emit('update user', {
       bgImageId: publicId,
       bgImageVersion: version,
       userId: response[0],
     })
+    // Add image to the queue to update the background image in the database
     imageQueue.addImageJob('updateBGImageInDB', {
       key: `${req.currentUser!.userId}`,
       imgId: publicId,
       imgVersion: version.toString(),
     })
+    // Send response to the client
     res.status(HTTP_STATUS.OK).json({ message: 'Image added successfully' })
   }
 
