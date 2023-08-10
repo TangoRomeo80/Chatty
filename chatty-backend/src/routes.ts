@@ -8,9 +8,8 @@ import { reactionRoutes } from '@reaction/routes/reactionRoutes'
 import { commentRoutes } from '@comment/routes/commentRoutes'
 import { followerRoutes } from '@follower/routes/followerRoutes'
 import { notificationRoutes } from '@notification/routes/notificationRoutes'
-// import { notificationRoutes } from '@notification/routes/notificationRoutes';
-// import { imageRoutes } from '@image/routes/imageRoutes';
-// import { chatRoutes } from '@chat/routes/chatRoutes';
+import { imageRoutes } from '@image/routes/imageRoutes'
+import { chatRoutes } from '@chat/routes/chatRoutes'
 // import { userRoutes } from '@user/routes/userRoutes';
 // import { healthRoutes } from '@user/routes/healthRoutes';
 
@@ -33,8 +32,8 @@ export default (app: Application) => {
     app.use(BASE_PATH, authMiddleware.verifyUser, commentRoutes.routes()) // Comment functionality routes
     app.use(BASE_PATH, authMiddleware.verifyUser, followerRoutes.routes()) // Follower functionality routes
     app.use(BASE_PATH, authMiddleware.verifyUser, notificationRoutes.routes()) // Notification functionality routes
-    // app.use(BASE_PATH, authMiddleware.verifyUser, imageRoutes.routes());
-    // app.use(BASE_PATH, authMiddleware.verifyUser, chatRoutes.routes());
+    app.use(BASE_PATH, authMiddleware.verifyUser, imageRoutes.routes()) // Image functionality routes
+    app.use(BASE_PATH, authMiddleware.verifyUser, chatRoutes.routes()) // Chat functionality routes
     // app.use(BASE_PATH, authMiddleware.verifyUser, userRoutes.routes());
   }
   routes()
