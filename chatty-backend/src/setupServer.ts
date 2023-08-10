@@ -28,6 +28,8 @@ import { SocketIOPostHandler } from '@socket/post.socket'
 import { SocketIOFollowerHandler } from '@socket/follower.socket'
 import { SocketIOUserHandler } from '@socket/user.socket'
 import { SocketIONotificationHandler } from '@socket/notification.socket'
+import { SocketIOChatHandler } from '@socket/chat.socket'
+import { SocketIOImageHandler } from '@socket/image.socket'
 
 const log: Logger = config.createLogger('setupServer.ts') // create a logger instance
 
@@ -147,17 +149,22 @@ export class ChattyServer {
 
   // Method to start socket server
   private socketIOConnections(io: Server): void {
-    // create socket handler objects
+    // Initialize socket handlers
     const postSocketHandler: SocketIOPostHandler = new SocketIOPostHandler(io)
     const followerSocketHandler: SocketIOFollowerHandler =
       new SocketIOFollowerHandler(io)
     const userSocketHandler: SocketIOUserHandler = new SocketIOUserHandler(io)
+    const chatSocketHandler: SocketIOChatHandler = new SocketIOChatHandler(io)
     const notificationSocketHandler: SocketIONotificationHandler =
       new SocketIONotificationHandler()
-    // listen to socket connections
+    const imageSocketHandler: SocketIOImageHandler = new SocketIOImageHandler()
+
+    // Listen to socket connections
     postSocketHandler.listen()
     followerSocketHandler.listen()
     userSocketHandler.listen()
+    chatSocketHandler.listen()
     notificationSocketHandler.listen(io)
+    imageSocketHandler.listen(io)
   }
 }
