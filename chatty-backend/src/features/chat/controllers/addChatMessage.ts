@@ -114,6 +114,7 @@ export class Add {
       `${conversationObjectId}`,
       messageData
     )
+    // add chat message to db
     chatQueue.addChatJob('addChatMessageToDB', messageData)
 
     // Send notification email
