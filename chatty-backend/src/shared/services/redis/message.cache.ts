@@ -104,6 +104,7 @@ export class MessageCache extends BaseCache {
     }
   }
 
+  // Cache functionality for removing chat users
   public async removeChatUsersFromCache(
     value: IChatUsers
   ): Promise<IChatUsers[]> {
@@ -342,6 +343,7 @@ export class MessageCache extends BaseCache {
     }
   }
 
+  // get list of users in chat
   private async getChatUsersList(): Promise<IChatUsers[]> {
     const chatUsersList: IChatUsers[] = []
     const chatUsers = await this.client.LRANGE('chatUsers', 0, -1)

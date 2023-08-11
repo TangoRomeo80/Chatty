@@ -13,6 +13,9 @@ import { IReactionJob } from '@reaction/interfaces/reaction.interface'
 import { ICommentJob } from '@comment/interfaces/comment.interface'
 import { IFollowerJobData } from '@follower/interfaces/follower.interface'
 import { IBlockedUserJobData } from '@follower/interfaces/follower.interface'
+import { INotificationJobData } from '@notification/interfaces/notification.interface'
+import { IFileImageJobData } from '@image/interfaces/image.interface'
+import { IChatJobData, IMessageData } from '@chat/interfaces/chat.interface'
 
 type IBaseJobData =
   | IAuthJob
@@ -22,10 +25,10 @@ type IBaseJobData =
   | ICommentJob
   | IFollowerJobData
   | IBlockedUserJobData
-  //   | INotificationJobData
-  //   | IFileImageJobData
-  //   | IChatJobData
-  //   | IMessageData
+  | INotificationJobData
+  | IFileImageJobData
+  | IChatJobData
+  | IMessageData
   | IUserJob
 
 // Initialize job adapters
