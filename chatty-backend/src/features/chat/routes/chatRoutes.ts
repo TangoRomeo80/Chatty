@@ -3,7 +3,7 @@
 import express, { Router } from 'express'
 import { authMiddleware } from '@global/helpers/authMiddleware'
 import { Add } from '@chat/controllers/addChatMessage'
-// import { Get } from '@chat/controllers/get-chat-message'
+import { Get } from '@chat/controllers/getChatMessage'
 // import { Delete } from '@chat/controllers/delete-chat-message'
 // import { Update } from '@chat/controllers/update-chat-message'
 // import { Message } from '@chat/controllers/add-message-reaction'
@@ -16,11 +16,11 @@ class ChatRoutes {
   }
 
   public routes(): Router {
-    // this.router.get(
-    //   '/chat/message/conversation-list',
-    //   authMiddleware.checkAuthentication,
-    //   Get.prototype.conversationList
-    // )
+    this.router.get(
+      '/chat/message/conversation-list',
+      authMiddleware.checkAuthentication,
+      Get.prototype.conversationList
+    )
     // this.router.get(
     //   '/chat/message/user/:receiverId',
     //   authMiddleware.checkAuthentication,
