@@ -159,6 +159,7 @@ export class MessageCache extends BaseCache {
     }
   }
 
+  // Method to get chat meassage from cache
   public async getChatMessagesFromCache(
     senderId: string,
     receiverId: string

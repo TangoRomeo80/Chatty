@@ -10,6 +10,7 @@ import { IMessageData } from '@chat/interfaces/chat.interface'
 const messageCache: MessageCache = new MessageCache()
 
 export class Get {
+  // Method to get user conversation list
   public async conversationList(req: Request, res: Response): Promise<void> {
     let list: IMessageData[] = []
     const cachedList: IMessageData[] =
@@ -25,6 +26,7 @@ export class Get {
     res.status(HTTP_STATUS.OK).json({ message: 'User conversation list', list })
   }
 
+  // Method to get user chat messages
   public async messages(req: Request, res: Response): Promise<void> {
     const { receiverId } = req.params
 
