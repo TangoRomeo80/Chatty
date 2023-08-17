@@ -132,6 +132,7 @@ export class MessageCache extends BaseCache {
     }
   }
 
+  // get user conversation list from cache
   public async getUserConversationList(key: string): Promise<IMessageData[]> {
     try {
       if (!this.client.isOpen) {
