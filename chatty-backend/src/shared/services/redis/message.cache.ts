@@ -198,6 +198,7 @@ export class MessageCache extends BaseCache {
     }
   }
 
+  // Method to markk message as deleted
   public async markMessageAsDeleted(
     senderId: string,
     receiverId: string,
@@ -356,6 +357,7 @@ export class MessageCache extends BaseCache {
     return chatUsersList
   }
 
+  // Method to get message from cache
   private async getMessage(
     senderId: string,
     receiverId: string,
