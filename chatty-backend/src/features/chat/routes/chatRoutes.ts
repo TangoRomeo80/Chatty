@@ -5,8 +5,8 @@ import { authMiddleware } from '@global/helpers/authMiddleware'
 import { Add } from '@chat/controllers/addChatMessage'
 import { Get } from '@chat/controllers/getChatMessage'
 import { Delete } from '@chat/controllers/deleteChatMessage'
-// import { Update } from '@chat/controllers/update-chat-message'
-// import { Message } from '@chat/controllers/add-message-reaction'
+import { Update } from '@chat/controllers/updateChatMessage'
+import { Message } from '@chat/controllers/addMessageReaction'
 
 class ChatRoutes {
   private router: Router
@@ -46,16 +46,18 @@ class ChatRoutes {
       authMiddleware.checkAuthentication,
       Add.prototype.removeChatUsers
     )
-    // this.router.put(
-    //   '/chat/message/mark-as-read',
-    //   authMiddleware.checkAuthentication,
-    //   Update.prototype.message
-    // )
-    // this.router.put(
-    //   '/chat/message/reaction',
-    //   authMiddleware.checkAuthentication,
-    //   Message.prototype.reaction
-    // )
+    // Mark message as read
+    this.router.put(
+      '/chat/message/mark-as-read',
+      authMiddleware.checkAuthentication,
+      Update.prototype.message
+    )
+    // Add or modify reaction on chat message
+    this.router.put(
+      '/chat/message/reaction',
+      authMiddleware.checkAuthentication,
+      Message.prototype.reaction
+    )
     // Mark message as deleted
     this.router.delete(
       '/chat/message/mark-as-deleted/:messageId/:senderId/:receiverId/:type',
