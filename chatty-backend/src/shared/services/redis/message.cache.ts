@@ -238,6 +238,7 @@ export class MessageCache extends BaseCache {
     }
   }
 
+  // Method to mark message as read
   public async updateChatMessages(
     senderId: string,
     receiverId: string
