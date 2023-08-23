@@ -288,6 +288,7 @@ export class MessageCache extends BaseCache {
     }
   }
 
+  // Method to update message reaction
   public async updateMessageReaction(
     conversationId: string,
     messageId: string,
