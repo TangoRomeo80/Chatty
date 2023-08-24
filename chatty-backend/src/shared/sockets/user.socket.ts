@@ -38,12 +38,14 @@ export class SocketIOUserHandler {
     })
   }
 
+  // adding online users to maps
   private addClientToMap(username: string, socketId: string): void {
     if (!connectedUsersMap.has(username)) {
       connectedUsersMap.set(username, socketId)
     }
   }
 
+  // removing online users from maps
   private removeClientFromMap(socketId: string): void {
     if (Array.from(connectedUsersMap.values()).includes(socketId)) {
       const disconnectedUser: [string, string] = [...connectedUsersMap].find(
