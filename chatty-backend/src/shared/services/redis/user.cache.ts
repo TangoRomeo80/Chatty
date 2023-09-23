@@ -1,3 +1,5 @@
+// This file contains all the redis cache logics for user model.
+// Import dependencies
 import { BaseCache } from '@service/redis/base.cache'
 import {
   INotificationSettings,
