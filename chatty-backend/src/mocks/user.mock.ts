@@ -1,17 +1,17 @@
-import { IUserDocument } from '@user/interfaces/user.interface';
+import { IUserDocument } from '@user/interfaces/user.interface'
 
 export const mockExistingUser = {
   notifications: {
     messages: true,
     reactions: true,
     comments: true,
-    follows: true
+    follows: true,
   },
   social: {
     facebook: '',
     instagram: '',
     twitter: '',
-    youtube: ''
+    youtube: '',
   },
   blocked: [],
   blockedBy: [],
@@ -26,21 +26,21 @@ export const mockExistingUser = {
   school: 'University of Benin',
   location: 'Dusseldorf, Germany',
   quote: 'Sky is my limit',
-  createdAt: new Date()
-} as unknown as IUserDocument;
+  createdAt: new Date(),
+} as unknown as IUserDocument
 
 export const existingUser = {
   notifications: {
     messages: true,
     reactions: true,
     comments: true,
-    follows: true
+    follows: true,
   },
   social: {
     facebook: '',
     instagram: '',
     twitter: '',
-    youtube: ''
+    youtube: '',
   },
   blocked: [],
   blockedBy: [],
@@ -59,21 +59,21 @@ export const existingUser = {
   school: 'University of Benin',
   location: 'Dusseldorf, Germany',
   quote: 'Sky is my limit',
-  createdAt: new Date()
-} as unknown as IUserDocument;
+  createdAt: new Date(),
+} as unknown as IUserDocument
 
 export const existingUserTwo = {
   notifications: {
     messages: false,
     reactions: true,
     comments: true,
-    follows: false
+    follows: false,
   },
   social: {
     facebook: '',
     instagram: '',
     twitter: '',
-    youtube: ''
+    youtube: '',
   },
   blocked: [],
   blockedBy: [],
@@ -92,21 +92,21 @@ export const existingUserTwo = {
   school: 'University of Benin',
   location: 'Dusseldorf, Germany',
   quote: 'Sky is my limit',
-  createdAt: new Date()
-} as unknown as IUserDocument;
+  createdAt: new Date(),
+} as unknown as IUserDocument
 
 export const mergedAuthAndUserData = {
   notifications: {
     messages: false,
     reactions: true,
     comments: true,
-    follows: false
+    follows: false,
   },
   social: {
     facebook: '',
     instagram: '',
     twitter: '',
-    youtube: ''
+    youtube: '',
   },
   blocked: [],
   blockedBy: [],
@@ -126,8 +126,8 @@ export const mergedAuthAndUserData = {
   school: 'University of Benin',
   location: 'Dusseldorf, Germany',
   quote: 'Sky is my limit',
-  createdAt: '2022-08-31T07:42:24.451Z'
-} as unknown as IUserDocument;
+  createdAt: '2022-08-31T07:42:24.451Z',
+} as unknown as IUserDocument
 
 export const searchedUserMock = {
   profilePicture: 'http://place-hold.it/500x500',
@@ -135,8 +135,8 @@ export const searchedUserMock = {
   uId: '1621613119252062',
   username: 'Kenny',
   email: 'ken@me.com',
-  avatarColor: '#9c27b1'
-};
+  avatarColor: '#9c27b1',
+}
 
 export const userJwt =
-  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c';
+  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c'
