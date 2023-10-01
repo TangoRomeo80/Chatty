@@ -3,10 +3,10 @@
 import express, { Router } from 'express'
 import { authMiddleware } from '@global/helpers/authMiddleware'
 import { Get } from '@user/controllers/getProfile'
-// import { Search } from '@user/controllers/search-user';
-// import { Update } from '@user/controllers/change-password';
-// import { Edit } from '@user/controllers/update-basic-info';
-// import { UpdateSettings } from '@user/controllers/update-settings';
+import { Search } from '@user/controllers/searchUser'
+import { Update } from '@user/controllers/changePassword'
+import { Edit } from '@user/controllers/updateBasicInfo'
+import { UpdateSettings } from '@user/controllers/updateSettings';
 
 class UserRoutes {
   private router: Router
@@ -41,32 +41,32 @@ class UserRoutes {
       authMiddleware.checkAuthentication,
       Get.prototype.randomUserSuggestions
     )
-    // this.router.get(
-    //   '/user/profile/search/:query',
-    //   authMiddleware.checkAuthentication,
-    //   Search.prototype.user
-    // )
+    this.router.get(
+      '/user/profile/search/:query',
+      authMiddleware.checkAuthentication,
+      Search.prototype.user
+    )
 
-    // this.router.put(
-    //   '/user/profile/change-password',
-    //   authMiddleware.checkAuthentication,
-    //   Update.prototype.password
-    // )
-    // this.router.put(
-    //   '/user/profile/basic-info',
-    //   authMiddleware.checkAuthentication,
-    //   Edit.prototype.info
-    // )
-    // this.router.put(
-    //   '/user/profile/social-links',
-    //   authMiddleware.checkAuthentication,
-    //   Edit.prototype.social
-    // )
-    // this.router.put(
-    //   '/user/profile/settings',
-    //   authMiddleware.checkAuthentication,
-    //   UpdateSettings.prototype.notification
-    // )
+    this.router.put(
+      '/user/profile/change-password',
+      authMiddleware.checkAuthentication,
+      Update.prototype.password
+    )
+    this.router.put(
+      '/user/profile/basic-info',
+      authMiddleware.checkAuthentication,
+      Edit.prototype.info
+    )
+    this.router.put(
+      '/user/profile/social-links',
+      authMiddleware.checkAuthentication,
+      Edit.prototype.social
+    )
+    this.router.put(
+      '/user/profile/settings',
+      authMiddleware.checkAuthentication,
+      UpdateSettings.prototype.notification
+    )
 
     return this.router
   }
