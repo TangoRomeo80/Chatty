@@ -3,8 +3,8 @@
 import express, { Router } from 'express'
 import { authMiddleware } from '@global/helpers/authMiddleware'
 import { Get } from '@user/controllers/getProfile'
-// import { Search } from '@user/controllers/search-user';
-// import { Update } from '@user/controllers/change-password';
+import { Search } from '@user/controllers/searchUser';
+import { Update } from '@user/controllers/changePassword';
 // import { Edit } from '@user/controllers/update-basic-info';
 // import { UpdateSettings } from '@user/controllers/update-settings';
 
@@ -41,17 +41,17 @@ class UserRoutes {
       authMiddleware.checkAuthentication,
       Get.prototype.randomUserSuggestions
     )
-    // this.router.get(
-    //   '/user/profile/search/:query',
-    //   authMiddleware.checkAuthentication,
-    //   Search.prototype.user
-    // )
+    this.router.get(
+      '/user/profile/search/:query',
+      authMiddleware.checkAuthentication,
+      Search.prototype.user
+    )
 
-    // this.router.put(
-    //   '/user/profile/change-password',
-    //   authMiddleware.checkAuthentication,
-    //   Update.prototype.password
-    // )
+    this.router.put(
+      '/user/profile/change-password',
+      authMiddleware.checkAuthentication,
+      Update.prototype.password
+    )
     // this.router.put(
     //   '/user/profile/basic-info',
     //   authMiddleware.checkAuthentication,
