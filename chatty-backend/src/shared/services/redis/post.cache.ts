@@ -5,16 +5,15 @@ import Logger from 'bunyan'
 import { config } from '@root/config'
 import { ServerError } from '@global/helpers/errorHandler'
 import {
-  IPostDocument,
   ISavePostToCache,
+  IPostDocument,
 } from '@post/interfaces/post.interface'
-import { IReactions } from '@reaction/interfaces/reaction.interface'
 import { Helpers } from '@global/helpers/helpers'
 import { RedisCommandRawReply } from '@redis/client/dist/lib/commands'
+import { IReactions } from '@reaction/interfaces/reaction.interface'
 
 const log: Logger = config.createLogger('postCache')
 
-// Multi type for redis multi exec
 export type PostCacheMultiType =
   | string
   | number
@@ -28,7 +27,6 @@ export class PostCache extends BaseCache {
     super('postCache')
   }
 
-  // save post to cache
   public async savePostToCache(data: ISavePostToCache): Promise<void> {
     const { key, currentUserId, uId, createdPost } = data
     const {
@@ -99,7 +97,6 @@ export class PostCache extends BaseCache {
     }
   }
 
-  // get posts from cache
   public async getPostsFromCache(
     key: string,
     start: number,
@@ -113,12 +110,10 @@ export class PostCache extends BaseCache {
       const reply: string[] = await this.client.ZRANGE(key, start, end, {
         REV: true,
       })
-
       const multi: ReturnType<typeof this.client.multi> = this.client.multi()
       for (const value of reply) {
         multi.HGETALL(`posts:${value}`)
       }
-
       const replies: PostCacheMultiType =
         (await multi.exec()) as PostCacheMultiType
       const postReplies: IPostDocument[] = []
@@ -132,6 +127,7 @@ export class PostCache extends BaseCache {
         ) as Date
         postReplies.push(post)
       }
+
       return postReplies
     } catch (error) {
       log.error(error)
@@ -139,7 +135,6 @@ export class PostCache extends BaseCache {
     }
   }
 
-  // get total posts in cache
   public async getTotalPostsInCache(): Promise<number> {
     try {
       if (!this.client.isOpen) {
@@ -153,7 +148,6 @@ export class PostCache extends BaseCache {
     }
   }
 
-  // get posts with images from cache
   public async getPostsWithImagesFromCache(
     key: string,
     start: number,
@@ -193,7 +187,45 @@ export class PostCache extends BaseCache {
     }
   }
 
-  // Get posts of a user from cache
+  public async getPostsWithVideosFromCache(
+    key: string,
+    start: number,
+    end: number
+  ): Promise<IPostDocument[]> {
+    try {
+      if (!this.client.isOpen) {
+        await this.client.connect()
+      }
+
+      const reply: string[] = await this.client.ZRANGE(key, start, end, {
+        REV: true,
+      })
+      const multi: ReturnType<typeof this.client.multi> = this.client.multi()
+      for (const value of reply) {
+        multi.HGETALL(`posts:${value}`)
+      }
+      const replies: PostCacheMultiType =
+        (await multi.exec()) as PostCacheMultiType
+      const postWithVideos: IPostDocument[] = []
+      for (const post of replies as IPostDocument[]) {
+        if (post.videoId && post.videoVersion) {
+          post.commentsCount = Helpers.parseJson(
+            `${post.commentsCount}`
+          ) as number
+          post.reactions = Helpers.parseJson(`${post.reactions}`) as IReactions
+          post.createdAt = new Date(
+            Helpers.parseJson(`${post.createdAt}`)
+          ) as Date
+          postWithVideos.push(post)
+        }
+      }
+      return postWithVideos
+    } catch (error) {
+      log.error(error)
+      throw new ServerError('Server error. Try again.')
+    }
+  }
+
   public async getUserPostsFromCache(
     key: string,
     uId: number
@@ -231,7 +263,6 @@ export class PostCache extends BaseCache {
     }
   }
 
-  // get total posts of a user in cache
   public async getTotalUserPostsInCache(uId: number): Promise<number> {
     try {
       if (!this.client.isOpen) {
@@ -245,7 +276,6 @@ export class PostCache extends BaseCache {
     }
   }
 
-  // Delete post from cache
   public async deletePostFromCache(
     key: string,
     currentUserId: string
@@ -272,7 +302,6 @@ export class PostCache extends BaseCache {
     }
   }
 
-  // Update post in cache
   public async updatePostInCache(
     key: string,
     updatedPost: IPostDocument
